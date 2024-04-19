@@ -1,8 +1,16 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
+import GithubProvider from 'next-auth/providers/github'
 import { NuxtAuthHandler } from '#auth'
 
 export default NuxtAuthHandler({
+    secret: process.env.AUTH_SECRET ?? 'test-123',
     providers: [
+        // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
+        GithubProvider.default({
+            clientId: 'Iv1.60bd504afc0074a2',
+            clientSecret: '3d6d5b6e84e23344d01d93252de9dd6bbbdad041'
+        }),
+
         // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
         CredentialsProvider.default({
             name: 'Credentials',
